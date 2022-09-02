@@ -18,8 +18,8 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if (ifFull()) {
-            return null;
+        if (isNoAvailablePosition()) {
+            throw  new NoAvailablePositionException();
         }
         ParkingTicket parkingTicket = new ParkingTicket();
         parkedPositions.put(parkingTicket, car);
@@ -27,12 +27,19 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
+        if (isUnrecognizedTicket(parkingTicket)) {
+            throw new UnrecognizedParkingTicketException();
+        }
         final Car car = parkedPositions.get(parkingTicket);
         parkedPositions.remove(parkingTicket);
         return car;
     }
 
-    private boolean ifFull() {
+    private boolean isUnrecognizedTicket(ParkingTicket parkingTicket) {
+        return !parkedPositions.containsKey(parkingTicket);
+    }
+
+    private boolean isNoAvailablePosition() {
         return parkedPositions.size() >= capacity;
     }
 }
