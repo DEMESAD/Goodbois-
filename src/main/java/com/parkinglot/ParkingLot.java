@@ -20,4 +20,6 @@ public class ParkingLot {
     public Car fetch(ParkingTicket ticket) {
     return this.parkedPosition.get(ticket);
     }
+
+
 }

@@ -1,8 +1,8 @@
 package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
   @Test
@@ -34,7 +34,7 @@ public class ParkingLotTest {
   }
 
   @Test
-  void should_return_righ_car_when_fetch_twice_given_parking_lot_with_two_parked_cars_and_two_ticket(){
+  void should_return_right_car_when_fetch_twice_given_parking_lot_with_two_parked_cars_and_two_ticket(){
     //given
     ParkingLot parkingLot = new ParkingLot();
     Car carA = new Car();
@@ -51,6 +51,40 @@ public class ParkingLotTest {
     assertEquals(carA, fetchedCarWithTicketA);
     assertEquals(carB, fetchedCarWithTicketB);
   }
+
+  @Test
+  void should_return_nothing_when_fetch_given_parking_lot_and_wrong_parking_ticket(){
+    //given
+    ParkingLot parkingLot = new ParkingLot();
+    Car parkedCar = new Car();
+    parkingLot.park(parkedCar);
+    ParkingTicket wrongTicket = new ParkingTicket();
+
+    //When
+    Car fetchedCar = parkingLot.fetch(wrongTicket);
+
+    //then
+   assertNull(fetchedCar);
+  }
+
+  @Test
+  void should_return_nothing_when_fetch_given_parking_lot_used_ticket(){
+    //given
+    ParkingLot parkingLot = new ParkingLot();
+    Car parkedCar = new Car();
+    ParkingTicket ticket = parkingLot.park(parkedCar);
+    parkingLot.fetch(ticket);
+
+
+    //When
+    Car fetchedCar = parkingLot.fetch(ticket);
+
+    //then
+    assertNull(fetchedCar);
+  }
+
+
+
 
 
 
