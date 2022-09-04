@@ -35,11 +35,19 @@ public class ParkingLot {
         return car;
     }
 
-    private boolean isUnrecognizedTicket(ParkingTicket parkingTicket) {
+    boolean isUnrecognizedTicket(ParkingTicket parkingTicket) {
         return !parkedPositions.containsKey(parkingTicket);
     }
 
     private boolean isNoAvailablePosition() {
+        return parkedPositions.size() >= capacity;
+    }
+
+    public int getAvailableParkingPosition() {
+        return capacity - parkedPositions.size();
+    }
+
+    public boolean ifFull() {
         return parkedPositions.size() >= capacity;
     }
 }
