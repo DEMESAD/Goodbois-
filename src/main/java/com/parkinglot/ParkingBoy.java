@@ -1,11 +1,10 @@
 package com.parkinglot;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingBoy {
     private ParkingLot parkingLot;
-    private List<ParkingLot> multipleParkingLot;
+    private final List<ParkingLot> multipleParkingLot;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
@@ -18,16 +17,18 @@ public class ParkingBoy {
     }
 
     private void checkAvailableParkingLot() {
-        this.parkingLot = this.multipleParkingLot
-                .stream()
-                .filter(eachParkingLot -> !eachParkingLot.ifFull())
-                .findFirst()
-                .orElse(null);
+        this.parkingLot = this.getMoreEmptySlot();
         if(this.parkingLot == null){
             this.parkingLot = this.multipleParkingLot.get(0);
         }
     }
-
+    public ParkingLot getMoreEmptySlot(){
+        return this.multipleParkingLot
+                .stream()
+                .filter(eachParkingLot -> !eachParkingLot.ifFull())
+                .findFirst()
+                .orElse(null);
+    }
 
 
     public ParkingTicket park(Car car) {
@@ -57,4 +58,7 @@ public class ParkingBoy {
     }
 
 
+    public List<ParkingLot> getMultipleParkingLot() {
+        return this.multipleParkingLot;
+    }
 }

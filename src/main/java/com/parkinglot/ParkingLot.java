@@ -1,5 +1,6 @@
 package com.parkinglot;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,5 +50,9 @@ public class ParkingLot {
 
     public boolean ifFull() {
         return parkedPositions.size() >= capacity;
+    }
+
+    public int getAvailableSlots() {
+        return this.capacity - this.parkedPositions.size();
     }
 }
